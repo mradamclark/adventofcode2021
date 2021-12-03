@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-inputfile = 'day1_input.txt'
-
+inputfile = '../Files/01.input.txt'
 
 increaseCount = 0
 depths = []
@@ -16,8 +15,7 @@ with open(inputfile) as file:
         if prevDepth < currDepth:
             increaseCount = increaseCount + 1
             
-        prevDepth = currDepth
-        
+        prevDepth = currDepth      
 
 print('Linear IncreaseCount = ' + str(increaseCount))
         

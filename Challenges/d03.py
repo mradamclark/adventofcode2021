@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-inputfile = 'puzzleInput.txt'
+inputfile = '../Files/03.input.txt'
 ONE_BIT = '1'
 ZERO_BIT = '0'
     
