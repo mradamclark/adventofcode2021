@@ -1,29 +1,28 @@
 #!/usr/bin/python
 
-def solve():
-    inputfile = '../Files/03.input.txt'
-    ONE_BIT = '1'
-    ZERO_BIT = '0'
-        
-    def count_ones(position, bin_data):
-        ones = 0
-        for s in bin_data:
-            if s[position] == ONE_BIT:
-                ones += 1
-        return ones
-                
-    def get_common_bit(position, bin_data, most_common_result, least_common_result):
-        ones = count_ones(position, bin_data)
-        return most_common_result if ones >= (len(bin_data) - ones) else least_common_result     
-        
-    def filter(most_common_result, least_common_result, bin_data, pos = 0):
-        if len(bin_data) == 1:
-            return bin_data.pop(0)
-        else:
-            bit = get_common_bit(pos, bin_data, most_common_result, least_common_result)
-            new_bin_data = [num for num in bin_data if num[pos] == bit]
-            return filter(most_common_result, least_common_result, new_bin_data, pos + 1)
+ONE_BIT = '1'
+ZERO_BIT = '0'
 
+def count_ones(position, bin_data):
+    ones = 0
+    for s in bin_data:
+        if s[position] == ONE_BIT:
+            ones += 1
+    return ones
+            
+def get_common_bit(position, bin_data, most_common_result, least_common_result):
+    ones = count_ones(position, bin_data)
+    return most_common_result if ones >= (len(bin_data) - ones) else least_common_result     
+    
+def filter(most_common_result, least_common_result, bin_data, pos = 0):
+    if len(bin_data) == 1:
+        return bin_data.pop(0)
+    else:
+        bit = get_common_bit(pos, bin_data, most_common_result, least_common_result)
+        new_bin_data = [num for num in bin_data if num[pos] == bit]
+        return filter(most_common_result, least_common_result, new_bin_data, pos + 1)
+
+def solve(inputfile):
     with open(inputfile) as file:
         bin_data = [line.strip() for line in file]
 
@@ -39,8 +38,8 @@ def solve():
     gamma_rating = int(''.join(gamma_rating),2)
     epsilon_rating = int(''.join(epsilon_rating),2)
 
-    print('Power: ' + str(gamma_rating * epsilon_rating))
-    print("Life Support Rating: " + str(oxy_rating * co2_rating))
+    print('P1 - Power: ' + str(gamma_rating * epsilon_rating))
+    print('P2 - Life Support Rating: ' + str(oxy_rating * co2_rating))
 
 if __name__ == '__main__':
-    solve()
+    solve('../Files/03.input.txt')
