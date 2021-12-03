@@ -1,11 +1,13 @@
 #!/usr/bin/python
 
 inputfile = 'puzzleInput.txt'
-
+ONE_BIT = '1'
+ZERO_BIT = '0'
+    
 def count_ones(position, bin_data):
     ones = 0
     for s in bin_data:
-        if s[position] == '1':
+        if s[position] == ONE_BIT:
             ones += 1
     return ones
              
@@ -17,11 +19,8 @@ def filter(most_common_result, least_common_result, bin_data, pos = 0):
     if len(bin_data) == 1:
         return bin_data.pop(0)
     else:
-        new_bin_data = []
         bit = get_common_bit(pos, bin_data, most_common_result, least_common_result)
-        for number in bin_data:
-            if number[pos] == bit:
-                new_bin_data.append(number)
+        new_bin_data = [num for num in bin_data if num[pos] == bit]
         return filter(most_common_result, least_common_result, new_bin_data, pos + 1)
 
 with open(inputfile) as file:
@@ -31,11 +30,11 @@ gamma_rating = []
 epsilon_rating = [] 
       
 for i in range(len(bin_data[0])):
-    gamma_rating.append(get_common_bit(i, bin_data, '1', '0'))
-    epsilon_rating.append(get_common_bit(i, bin_data, '0','1'))
+    gamma_rating.append(get_common_bit(i, bin_data, ONE_BIT, ZERO_BIT))
+    epsilon_rating.append(get_common_bit(i, bin_data, ZERO_BIT,ONE_BIT))
     
-oxy_rating = int(filter('1','0',bin_data),2)
-co2_rating = int(filter('0','1', bin_data),2)
+oxy_rating = int(filter(ONE_BIT,ZERO_BIT,bin_data),2)
+co2_rating = int(filter(ZERO_BIT,ONE_BIT, bin_data),2)
 gamma_rating = int(''.join(gamma_rating),2)
 epsilon_rating = int(''.join(epsilon_rating),2)
 
