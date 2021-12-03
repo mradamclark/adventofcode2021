@@ -33,11 +33,6 @@ def parseargs():
         
 def solver():
     print(_target_days)
-    for d in _target_days:
-        class_name = "Day%02d" % d
-        klass = globals()[class_name]
-        instance = klass()
-        print(instance.solve())
 
 if __name__ == '__main__':
     parseargs()
