@@ -1,31 +1,36 @@
 #!/usr/bin/python
 
-def solve(inputfile):
+class D01:
+    def __init__(self):
+        pass
+    
+    def solve(self, filedata):
+        increaseCount = 0
+        prevDepth = filedata[0]
+        for i in range(1, len(filedata)):
+            currDepth = filedata[i] 
+            if prevDepth < currDepth:
+                increaseCount = increaseCount + 1   
+            prevDepth = currDepth      
 
-    with open(inputfile) as file:
-        depths = [int(line.strip()) for line in file]
-
-    increaseCount = 0
-    prevDepth = depths[0]
-    for i in range(1, len(depths)):
-        currDepth = depths[i] 
-        if prevDepth < currDepth:
-            increaseCount = increaseCount + 1   
-        prevDepth = currDepth      
-
-    print('P1 - Linear IncreaseCount = ' + str(increaseCount))
+        print('P1 - Linear IncreaseCount = ' + str(increaseCount))
+                
+        # Part 2 
+        windowSize = 3
+        increaseCount = 0
+        prevDepthSum = sum(filedata[:windowSize])
+        for i in range(len(filedata) - windowSize):
+            currDepthSum = prevDepthSum - filedata[i] + filedata[i+windowSize]
+            if (prevDepthSum < currDepthSum):
+                increaseCount = increaseCount + 1
             
-    # Part 2 
-    windowSize = 3
-    increaseCount = 0
-    prevDepthSum = sum(depths[:windowSize])
-    for i in range(len(depths) - windowSize):
-        currDepthSum = prevDepthSum - depths[i] + depths[i+windowSize]
-        if (prevDepthSum < currDepthSum):
-            increaseCount = increaseCount + 1
-        
-    print('P2 - Windowed IncreaseCount = ' + str(increaseCount))
+        print('P2 - Windowed IncreaseCount = ' + str(increaseCount))
         
 if __name__ == '__main__':
-    solve('../Files/01.input.txt')
+    
+    with open('../Files/01.input.txt') as file:
+            depths = [int(line.strip()) for line in file]
+    
+    solver = D01()     
+    solver.solve(depths)
         
