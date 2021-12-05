@@ -1,9 +1,8 @@
 #!/usr/bin/python
-import re
-
+import re,operator
 class grid:
     def __init__(self):
-        self.rows, self.cols = (1000, 1000)
+        self.rows, self.cols = (1000, 10000)
         self.grid = [[0 for i in range(self.cols)] for j in range(self.rows)]
         
     def place_vent(self, s, e): 
@@ -15,21 +14,36 @@ class grid:
                 self.grid[i][y[0]] += 1
         
         elif (x[1] == y[1]):
-           # print('horizontal ' + path)
+            # print('horizontal ' + path)
             for i in range(x[0],y[0]+1):
                 self.grid[y[1]][i] += 1
+        else:
+            # print('diagonal ' + path)
+            points = []
+            op = operator.sub if x[0] > y[0] else operator.add
+               
+            for i in range(x[0],op(y[0],1), -1 if x[0] > y[0] else 1):
+                points.append([i,0])
+
+            op = operator.sub if x[1] > y[1] else operator.add
+            points[0][1] = x[1]
+            for i in range(1, len(points)):
+                p = points[i]
+                prev = points[i-1]
+                p[1] = op(prev[1], 1)
+
+            for p in points:
+                self.grid[p[1]][p[0]] += 1
     
     def order(self, s, e):
         if (s[0] == e[0]):
             if (s[1] > e[1]):
                 return e,s
-            else:
-                return s,e
         else:
             if (s[0] > e[0]):
                 return e,s
-            else:
-                return s,e
+        
+        return s,e
     
     def danger_count(self):
         i = 0
@@ -49,15 +63,20 @@ class d05:
 
     def solve(self, data):
         p = re.compile('^(\d+),(\d+) -> (\d+),(\d+)$')
-        g = grid()
+        p1 = grid()
+        p2 = grid()
         for d in data:
             coords = p.findall(d)[0]
-            if ((coords[0] == coords[2]) or (coords[1] == coords[3])):
-                g.place_vent((int(coords[0]),int(coords[1])),(int(coords[2]),int(coords[3])))
-                #print(g)
+            s,e = (int(coords[0]), int(coords[1])), (int(coords[2]), int(coords[3]))
+            if (s[0] == e[0] or (s[1] == e[1])):
+                p1.place_vent(s,e)
+            p2.place_vent(s,e)
         
-        print('danger count: ' + str(g.danger_count()))
-
+        #print(p1)
+        print('p1 danger count: ' + str(p1.danger_count()))
+        
+        #print(p2)
+        print('p2 danger count: ' + str(p2.danger_count()))
 
 if __name__ == '__main__':
     with open('../../Files/05.input.txt') as file:
