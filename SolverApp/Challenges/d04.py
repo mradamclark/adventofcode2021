@@ -17,6 +17,7 @@ class cell:
     def __str__(self):
         called_char = 'T' if self.called else 'F'
         return '{}/{}'.format(self.value, called_char)
+        #return 'T' if self.called else str(self.value)
         
 
 class board:
@@ -47,7 +48,7 @@ class board:
         return False
     
     def is_col_winner(self):
-        for i in range(0, 4):
+        for i in range(0, 5):
             iswinner = all(c.is_called() for c in self.__cells[i::5])
             if (iswinner):
                 return True
@@ -86,11 +87,10 @@ class d04:
         print('\n')
         
     def solve_p2(self, boards, numbers):
-        
-        winner = None
         for n in numbers:
             lastn = n
             losers = []
+            winner = None
             for b in boards:
                 b.call_number(n)
                 if (b.is_winner()):
@@ -119,7 +119,9 @@ class d04:
         self.solve_p2(copy.deepcopy(boards), call_numbers)
 
 if __name__ == '__main__':
-    with open('../../Files/04.test.txt') as file:
+    with open('../../Files/04.input.txt') as file:
             data = [line.strip() for line in file]
     solver = d04()
     solver.solve(data) 
+
+    
