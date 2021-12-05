@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-class D01:
+class d01:
     def __init__(self):
         pass
     
@@ -31,6 +31,6 @@ if __name__ == '__main__':
     with open('../Files/01.input.txt') as file:
             depths = [int(line.strip()) for line in file]
     
-    solver = D01()     
+    solver = d01()     
     solver.solve(depths)
         

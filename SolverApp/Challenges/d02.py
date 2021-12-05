@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-class D02:
+class d02:
     def __init__(self):
         pass
         
@@ -40,5 +40,5 @@ if __name__ == '__main__':
     with open('../Files/02.input.txt') as file:
         commands = [line.strip() for line in file]
             
-    solver = D02()
+    solver = d02()
     solver.solve(commands)

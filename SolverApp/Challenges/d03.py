@@ -3,7 +3,7 @@
 ONE_BIT = '1'
 ZERO_BIT = '0'
 
-class D03:
+class d03:
     def __init__(self):
         pass
 
@@ -46,6 +46,6 @@ class D03:
 if __name__ == '__main__':
     with open('../Files/03.input.txt') as file:
             bin_data = [line.strip() for line in file]
-    solver = D03()
+    solver = d03()
     solver.solve(bin_data)
     
