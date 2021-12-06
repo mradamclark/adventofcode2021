@@ -5,22 +5,29 @@ class d06:
         pass
 
     def solve(self, data):
-        print(data)
-        fish = list(map(lambda x:int(x.strip()), data[0].split(',')))
-  
-        days = 80
-        for n in range(days):
-            newfish = []
-            for f in range(len(fish)):
-                if fish[f] == 0:
-                    newfish.append(8)
-                    fish[f] = 6
-                else:
-                    fish[f] -= 1
-            fish += newfish
-            print('{}: {}'.format(n, len(fish)))
+        fish = [0]*9
+        for i in list(map(lambda x:int(x.strip()), data[0].split(','))):
+            fish[i] += 1
         
-        print(len(fish))
+        days = 80
+        print('{}: {}'.format(' I', fish))
+        for n in range(days):
+            oldfish = 0
+            newfish = 0
+            if (fish[0] != 0):
+                oldfish = int(fish[0])
+                newfish = int(oldfish)
+                fish[0] = 0
+            
+            for i in range(1,len(fish)):
+                    fish[i-1] = fish[i]
+            
+            fish[6] += oldfish
+            fish[8] = newfish
+            print('{:02d}: {}'.format(n, fish))
+        
+        print(sum(fish))
+          
         
 
 if __name__ == '__main__':
