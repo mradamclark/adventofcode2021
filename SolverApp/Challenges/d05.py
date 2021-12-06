@@ -2,7 +2,7 @@
 import re,operator
 class grid:
     def __init__(self):
-        self.rows, self.cols = (1000, 10000)
+        self.rows, self.cols = (1000, 1000)
         self.grid = [[0 for i in range(self.cols)] for j in range(self.rows)]
         
     def place_vent(self, s, e): 
