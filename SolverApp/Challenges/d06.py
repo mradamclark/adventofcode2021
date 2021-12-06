@@ -9,7 +9,7 @@ class d06:
         for i in list(map(lambda x:int(x.strip()), data[0].split(','))):
             fish[i] += 1
         
-        days = 80
+        days = 256
         print('{}: {}'.format(' I', fish))
         for n in range(days):
             oldfish = 0
@@ -31,7 +31,7 @@ class d06:
         
 
 if __name__ == '__main__':
-    with open('../../Files/06.test.txt') as file:
+    with open('../../Files/06.input.txt') as file:
             data = [line.strip() for line in file]
     solver = d06()
     solver.solve(data) 
