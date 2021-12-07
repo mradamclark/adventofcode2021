@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 ONE_BIT = '1'
 ZERO_BIT = '0'

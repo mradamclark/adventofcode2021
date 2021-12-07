@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 __all__ = ['d01','d02','d03', 'd04']
 
