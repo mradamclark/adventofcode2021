@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-digit_map = ['abcefg', 'cf', 'acdeg','acdfg','bcdf','abdfg','abdefg','acf','abcdefg','acbdfg']
-known = {2:1,4:4,3:7,7:8}
 
 class d08:
     def __init__(self):
@@ -17,8 +15,9 @@ class d08:
         print(total)
     
     def solve_p2(self, data):
-       
+        known = {2:1,4:4,3:7,7:8}
         converted_sum = 0
+        
         for d in data:
             signals = [''.join(sorted(p)) for p in d[0].split()]
             digits =  [''.join(sorted(p)) for p in d[1].split()]
@@ -34,14 +33,14 @@ class d08:
             print(signals)       
             for s in signals:
                 p = set(s)
-                if len(s) == 6: # 0,6,9
-                    if rm[4] & p == rm[4]:
+                if len(s) == 6: # 0,6,9 are the only numbers that have 6 segments
+                    if rm[4] & p == rm[4]: 
                         m[s] = 9
                     elif rm[1] & p == rm[1]:
                         m[s] = 0
                     else:
                         m[s] = 6
-                if len(s) == 5: # 2,3,5
+                if len(s) == 5: # 2,3,5 are the only numbers with 5 segments
                     if rm[1] & p == rm[1]:
                         m[s] = 3
                     elif rm[4] | p == rm[8]:
@@ -50,11 +49,7 @@ class d08:
                         m[s] = 5
                         
             print(m)
-            converted = ''
-            for d in digits:
-                converted += (str(m[d]))
-            print(converted)
-            converted_sum += int(converted)
+            converted_sum += int(''.join([str(m[d]) for d in digits]))
         print(converted_sum)               
 
     def solve(self, data):
