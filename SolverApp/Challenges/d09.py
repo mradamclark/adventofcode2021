@@ -26,25 +26,33 @@ class d09:
             return True
         else:
             return False
-        
-    def solve(self, data):
-        self.readIntoGrid(data)
-        
+       
+    def solve_p1(self):
         for y in range(self.rows):
             for x in range(self.cols):
                 if self.isLowPoint(x,y):
-                    self.lowPoints.append((x,y))
-        
-        print(self.lowPoints)
+                    self.lowPoints.append((x,y))  
+                    
+    def solve_p2(self):
+        pass         
+       
+    def score_cluster(self, points) -> int:
         lv = []
-        for lp in self.lowPoints:
+        for lp in points:
             v = self.grid[lp[1]][lp[0]]
             lv.append(v)
-        print(lv)
         
         lv = list(map(lambda x:x+1, lv))
-        print(lv)
-        print(sum(lv))
+        return sum(lv)
+ 
+    def solve(self, data):
+        self.readIntoGrid(data)
+        
+        self.solve_p1()
+        print('p1 score: {}'.format(self.score_cluster(self.lowPoints)))
+        
+        self.solve_p2()
+
         
 if __name__ == '__main__':
     with open('../../Files/09.input.txt') as file:
