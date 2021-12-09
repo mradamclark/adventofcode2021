@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-digit_map = ['abcefg', 'cf', 'acdeg','acdfg','bcdf','abdfg','abdfge','acf','abcdefg','acbdfg']
+digit_map = ['abcefg', 'cf', 'acdeg','acdfg','bcdf','abdfg','abdefg','acf','abcdefg','acbdfg']
 known = {2:1,4:4,3:7,7:8}
 
 class d08:
