@@ -18,11 +18,44 @@ class d08:
     
     def solve_p2(self, data):
        
+        converted_sum = 0
         for d in data:
             signals = [''.join(sorted(p)) for p in d[0].split()]
             digits =  [''.join(sorted(p)) for p in d[1].split()]
-            print(signals, digits)
-                    
+            
+            rm = {}
+            m = {}
+            for s in signals:
+                if len(s) in known:
+                    n = known[len(s)]
+                    rm[n] = set(s)
+                    m[s] = n
+            
+            print(signals)       
+            for s in signals:
+                p = set(s)
+                if len(s) == 6: # 0,6,9
+                    if rm[4] & p == rm[4]:
+                        m[s] = 9
+                    elif rm[1] & p == rm[1]:
+                        m[s] = 0
+                    else:
+                        m[s] = 6
+                if len(s) == 5: # 2,3,5
+                    if rm[1] & p == rm[1]:
+                        m[s] = 3
+                    elif rm[4] | p == rm[8]:
+                        m[s] = 2
+                    else:
+                        m[s] = 5
+                        
+            print(m)
+            converted = ''
+            for d in digits:
+                converted += (str(m[d]))
+            print(converted)
+            converted_sum += int(converted)
+        print(converted_sum)               
 
     def solve(self, data):
         signals = [s.split('|') for s in data]
@@ -31,7 +64,7 @@ class d08:
        
 
 if __name__ == '__main__':
-    with open('../../Files/08.test-simple.txt') as file:
+    with open('../../Files/08.input.txt') as file:
             data = [line.strip() for line in file]
     solver = d08()
     solver.solve(data) 
