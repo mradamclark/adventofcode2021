@@ -17,26 +17,15 @@ class d09:
     def isLowPoint(self,x,y):
         v = self.grid[y][x]
 
-        
-        ny = y-1 if y > 0 else 0
-        n = self.grid[ny][x]
-        
-        sy = y+1 if y < self.rows-1 else y
-        s = self.grid[sy][x]
-        
-        ex = x+1 if x < self.cols-1 else x
-        e = self.grid[y][ex]
-        
-        wx = x-1 if x > 0 else 0
-        w = self.grid[y][wx]
+        n = self.grid[y-1][x] if y > 0 else 9
+        s = self.grid[y+1][x] if y < self.rows-1 else 9
+        e = self.grid[y][x+1] if x < self.cols-1 else 9
+        w = self.grid[y][x-1] if x > 0 else 9
 
-        if (v <= n and v <= s and v <= e and v <= w):
+        if (v < n and v < s and v < e and v < w):
             return True
         else:
             return False
-        
-        
-        
         
     def solve(self, data):
         self.readIntoGrid(data)
@@ -50,7 +39,7 @@ class d09:
         lv = []
         for lp in self.lowPoints:
             v = self.grid[lp[1]][lp[0]]
-            if v < 9: lv.append(v)
+            lv.append(v)
         print(lv)
         
         lv = list(map(lambda x:x+1, lv))
