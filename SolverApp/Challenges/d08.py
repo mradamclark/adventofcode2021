@@ -8,11 +8,11 @@ class d08:
     def solve_p1(self, signals):
         total = 0
         for s in signals:
-            digits = s[1].split()
+            digits = s[1].split() # we are only counting when these digits occur, we don't care about the actual signals.
             for d in digits:
-                if (len(d) in [2,3,4,7]):
+                if (len(d) in [2,3,4,7]): # glad stumbled across this operator. 
                     total += 1
-        print(total)
+        print('p1: ',total)
     
     def solve_p2(self, data):
         known = {2:1,4:4,3:7,7:8}
@@ -22,7 +22,7 @@ class d08:
             signals = [''.join(sorted(p)) for p in d[0].split()]
             digits =  [''.join(sorted(p)) for p in d[1].split()]
             
-            rm = {}
+            rm = {} 
             m = {}
             for s in signals:
                 if len(s) in known:
@@ -30,27 +30,27 @@ class d08:
                     rm[n] = set(s)
                     m[s] = n
             
-            print(signals)       
+            #print(signals)       
             for s in signals:
                 p = set(s)
                 if len(s) == 6: # 0,6,9 are the only numbers that have 6 segments
-                    if rm[4] & p == rm[4]: 
+                    if rm[4] & p == rm[4]: # 4 & 9 == 4, 4 is contained in 9 only when 6 segments are used
                         m[s] = 9
-                    elif rm[1] & p == rm[1]:
+                    elif rm[1] & p == rm[1]: # 0 is the only 6 segment number that contains 1
                         m[s] = 0
-                    else:
-                        m[s] = 6
+                    else: # has to be by process of elimination
+                        m[s] = 6 
                 if len(s) == 5: # 2,3,5 are the only numbers with 5 segments
-                    if rm[1] & p == rm[1]:
+                    if rm[1] & p == rm[1]: # 3 is the only 5 segment number that contains 1
                         m[s] = 3
-                    elif rm[4] | p == rm[8]:
+                    elif rm[4] | p == rm[8]: # 4 | 2 == 8, in a seven segment display
                         m[s] = 2
-                    else:
+                    else: # has to be by process of elimination
                         m[s] = 5
                         
-            print(m)
+            #print(m)
             converted_sum += int(''.join([str(m[d]) for d in digits]))
-        print(converted_sum)               
+        print('p2: ', converted_sum)               
 
     def solve(self, data):
         signals = [s.split('|') for s in data]
