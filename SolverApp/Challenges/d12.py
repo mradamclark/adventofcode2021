@@ -10,7 +10,6 @@ class Cave:
         
     def addConnection(self, cave):
         self.connections[cave.Id] = cave
-        cave.connections[self.Id] = self
         
 class CaveSystem:
     def __init__(self, lines):
@@ -43,29 +42,36 @@ class CaveSystem:
             return self.caves[id]
         
     def getAllPaths(self) -> int:
-        visited = set()
-        self.findPaths(self.getCave('start'), self.getCave('end'), visited)
+       
         return self.pathCount
     
-    def findPaths(self, cave, end, visited):
+    def findPaths(self, cave, end, visited, revisit = False):
         if cave == end:
             self.pathCount += 1
             return
         
         for k,n in cave.connections.items():
             if n.small and k in visited:
-                continue
-            self.findPaths(n, end, {*visited, cave.Id})
-
+                if revisit: 
+                    self.findPaths(n, end, {*visited, cave.Id}, False)
+                else:
+                    continue
+            else:
+                self.findPaths(n, end, {*visited, cave.Id}, revisit)
+           
 class d12:
         
     def solve_p1(self, lines) -> int:
-        caves = CaveSystem(lines)
-        paths = caves.getAllPaths()
-        return(paths)
+        caves_p1 = CaveSystem(lines)
+        visited = set()
+        caves_p1.findPaths(caves_p1.getCave('start'), caves_p1.getCave('end'), visited)
+        return(caves_p1.pathCount)
     
     def solve_p2(self, lines) -> int:
-        return(-1)
+        caves = CaveSystem(lines)
+        visited = set()
+        caves.findPaths(caves.getCave('start'), caves.getCave('end'), visited, True)
+        return(caves.pathCount)
   
     def solve(self, lines):
         print('p1 = {}'.format(self.solve_p1(lines)))
