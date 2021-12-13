@@ -5,7 +5,6 @@ import re
 class d13:
         
     def foldPaper(self, coords, instrs):
-        newcoords = coords
         for instr in instrs:
             f = instr[1]
             tempcoords = []
@@ -25,8 +24,8 @@ class d13:
                             tempcoords.append(nc)
                     else:
                         tempcoords.append(c)
-            newcoords = tempcoords
-        return newcoords
+            coords = tempcoords
+        return coords
        
     def loadCoordsAndInstructions(self, lines):
         pastCoords = False
@@ -49,14 +48,28 @@ class d13:
     
     def solve_p1(self, lines) -> int:
         coords, instrs = self.loadCoordsAndInstructions(lines)
-        
         newcoords = self.foldPaper(coords, [instrs[0]])
-
         return(len(newcoords))
     
     def solve_p2(self, lines) -> int:
+        coords, instrs = self.loadCoordsAndInstructions(lines)
+        newcoords = self.foldPaper(coords, instrs)
         
+        mx,my = 0,0
+       
+        for c in newcoords:
+            mx = c[0] if c[0] > mx else mx
+            my = c[1] if c[1] > my else my
         
+        print(mx,my)
+        
+        paper = [[' ' for i in range(mx+1)] for j in range(my+1)]
+    
+        for c in newcoords:
+            paper[c[1]][c[0]] = '#'
+        
+        for l in paper:
+            print(''.join(l))
         
         return('see display')
   
@@ -66,7 +79,6 @@ class d13:
 
         
 if __name__ == '__main__':
-    print('test-simple')
     with open('../../Files/13.input.txt') as file:
             lines = [line.strip() for line in file]
     solver = d13()
