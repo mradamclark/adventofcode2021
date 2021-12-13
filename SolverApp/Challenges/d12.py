@@ -4,8 +4,6 @@ class Cave:
     def __init__(self, id):
         self.connections = {}
         self.Id = id
-        self.start = id == 'start'
-        self.end = id == 'end'
         self.small = id.islower()
         
     def addConnection(self, cave):
