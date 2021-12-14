@@ -30,19 +30,12 @@ class d14:
         char_freq = Counter(template)
         
         for _ in range(steps):
-            print('====')
-            print(pair_freq)
-            print(char_freq)
-            print('--')
             step_freq = Counter()
             for p, f in pair_freq.items():
-                print(p,f)
                 if p in rules:
                     step_freq[p[0] + rules[p]] += f
                     step_freq[rules[p] + p[1]] += f
                     char_freq[rules[p]] += f
-                print(f'\t{step_freq}')
-                print(f'\t{char_freq}')
             pair_freq = step_freq
 
         return max(char_freq.values()), min(char_freq.values())
@@ -51,7 +44,7 @@ class d14:
     def solve_p1(self, lines) -> int:
         polymer = lines[0]
         rules = self.getCrisperSequences(lines[2:])
-        most, least = d14.polymerize(polymer, rules, 1)
+        most, least = d14.polymerize(polymer, rules, 10)
         return most - least
         
     @timer_func
@@ -63,7 +56,7 @@ class d14:
   
     def solve(self, lines):
         print('p1 = {}'.format(self.solve_p1(lines)))
-        #print('p2 = {}'.format(self.solve_p2(lines)))
+        print('p2 = {}'.format(self.solve_p2(lines)))
         
 if __name__ == '__main__':
     with open('../../Files/14.test.txt') as file:
