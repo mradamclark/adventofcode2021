@@ -25,6 +25,8 @@ class d14:
         return rules
     
     splitPairs = lambda s:[s[i-1:i+1] for i in range(1,len(s))]
+ 
+    @timer_func
     def polymerize(template, rules, steps):
         pair_freq = Counter(d14.splitPairs(template))
         char_freq = Counter(template)
